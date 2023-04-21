@@ -8,6 +8,7 @@ def main():
         return
     path = sys.argv[1]
     interpreter = Interpreter(path)
+    interpreter.run()
 
 
 def arguments_correct():
