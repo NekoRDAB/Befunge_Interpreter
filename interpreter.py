@@ -8,6 +8,8 @@ class Interpreter:
         self.code = self.read_code_from_file(path)
         self.pointer = Pointer(self.width, self.height)
         self.instructions = dict()
+        self.add_base_instructions()
+        self.stack = []
 
     def run(self):
         while self.pointer.is_inside():
@@ -30,4 +32,34 @@ class Interpreter:
         return self.code[y][x]
 
     def add_base_instructions(self):
-        self.instructions['>'] = lambda:
+        self.add_direction_instructions()
+
+    def add_direction_instructions(self):
+        self.instructions.update({
+            '>': self.pointer.change_direction((1, 0)),
+            'v': self.pointer.change_direction((0, 1)),
+            '<': self.pointer.change_direction((-1, 0)),
+            '^': self.pointer.change_direction((0, -1)),
+        })
+
+    def add_operations(self):
+        stack = self.stack
+        self.instructions.update({
+            '+': stack.append(stack.pop(-1) + stack.pop(-1)),
+            '-': stack.append(stack.pop(-1) - stack.pop(-1)),
+            '*': stack.append(stack.pop(-1) * stack.pop(-1)),
+            '%': stack.append(stack.pop(-1) % stack.pop(-1)),
+            '/': self.divide_operation,
+            '!': stack.append(stack.pop(-1) == 0),
+            '`': stack.append(stack.pop(-1) > stack.pop(-1)),
+        })
+
+    def divide_operation(self):
+        b = self.stack.pop(-1)
+        a = self.stack.pop(-1)
+        if a == 0:
+            self.stack.append(
+                int(input("The divider is zero, what result do you want?"))
+            )
+        else:
+            self.stack.append(b // a)

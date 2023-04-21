@@ -1,17 +1,23 @@
 class Pointer:
     def __init__(self, width, height):
-        self.x = 0
-        self.y = 0
-        self.width = width
-        self.height = height
-        self.direction = None
+        self._x = 0
+        self._y = 0
+        self._width = width
+        self._height = height
+        self._direction = None
 
     def is_inside(self):
-        return 0 <= self.x < self.width and 0 <= self.y < self.height
+        return 0 <= self._x < self._width and 0 <= self._y < self._height
 
     def get_position(self):
-        return self.x, self.y
+        return self._x, self._y
 
-    def change_direction(self, ):
+    def change_direction(self, new_direction):
+        self._direction = new_direction
 
     def move(self):
+        self._x += self._direction[0]
+        self._y += self._direction[1]
+
+    def __repr__(self):
+        return f"row: {self._y} column: {self._y}"
