@@ -10,7 +10,7 @@ def main():
     if len(sys.argv) != 2:
         print(f"Usage:\n"
               f"\tpython interpreter.py <absolute path to befunge file>\n"
-              f"Extensions: {EXTENSIONS}")
+              f"Supported extensions: {EXTENSIONS}")
         return
     if not path_correct(sys.argv[1]):
         return
