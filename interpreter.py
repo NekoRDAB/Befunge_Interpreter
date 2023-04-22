@@ -37,6 +37,12 @@ class Interpreter:
         x, y = self.pointer.get_position()
         return self.code[y][x]
 
+    def get_char_at(self, x, y):
+        return self.code[y][x]
+
+    def change_char_at(self, x, y, v):
+        self.code[y][x] = v
+
     def execute_instruction(self):
         instruction = self.get_current_instruction()
         if self.skip_next:

@@ -14,7 +14,11 @@ def add_instructions(interpreter):
         '.': lambda: output_as_integer(interpreter),
         ',': lambda: output_as_ascii_char(interpreter),
         '#': lambda: interpreter.skip_next_instruction(),
+        '@': lambda: exit(0),
     })
+    add_call_instructions(interpreter)
+    add_input_instructions(interpreter)
+    add_numbers(interpreter)
 
 
 def add_direction_instructions(interpreter):
@@ -58,7 +62,7 @@ def add_conditions(interpreter):
     interpreter.instructions.update({
         "_": lambda: pointer.change_direction(
             choose_direction((1, 0), (1, 0))),
-        "|": lambda : pointer.change_direction(
+        "|": lambda: pointer.change_direction(
             choose_direction((0, 1), (0, -1))),
     })
 
@@ -86,9 +90,9 @@ def swap_top_stack_values(interpreter):
 
 
 def output_as_integer(interpreter):
-    x = interpreter.stack.pop(-1)
+    n = interpreter.stack.pop(-1)
     try:
-        print(int(x))
+        print(int(n))
     except ValueError:
         exit_with_message(
             "Top stack value expected to be an integer but it was not",
@@ -101,3 +105,62 @@ def output_as_ascii_char(interpreter):
         exit_with_message(
             "Top stack value expected to be an ascii char but it was not",
             interpreter.pointer)
+
+
+def add_call_instructions(interpreter):
+    stack = interpreter.stack
+    interpreter.instructions.update({
+        "g": lambda: get_call(),
+        "p": lambda: put_call(),
+    })
+
+    def get_call():
+        y = stack.pop(-1)
+        x = stack.pop(-1)
+        if 0 <= x <= interpreter.width and 0 <= y <= interpreter.height:
+            stack.append(interpreter.get_char_at(x, y))
+        else:
+            stack.append(0)
+
+    def put_call():
+        if len(stack) < 3:
+            exit_with_message(
+                "Not enough values for a put call",
+                interpreter.pointer)
+        y = stack.pop(-1)
+        x = stack.pop(-1)
+        v = stack.pop(-1)
+        if 0 <= x <= interpreter.width and 0 <= y <= interpreter.height:
+            interpreter.change_char_at(x, y, chr(v))
+        else:
+            exit_with_message(
+                "Put call coordinates were out of bounds",
+                interpreter.pointer)
+
+
+def add_input_instructions(interpreter):
+    stack = interpreter.stack
+    interpreter.instructions.update({
+        "&": lambda: get_integer(),
+        "~": lambda: get_char(),
+    })
+
+    def get_integer():
+        n = input()
+        try:
+            stack.append(int(n))
+        except ValueError:
+            exit_with_message("Incorrect integer value", interpreter.pointer)
+
+    def get_char():
+        c = input()
+        if len(c) != 1:
+            exit_with_message("Expected a single char", interpreter.pointer)
+        stack.append(c)
+
+
+def add_numbers(interpreter):
+    for n in range(10):
+        interpreter.instructions.update({
+            str(n): interpreter.stack.append(n)
+        })
