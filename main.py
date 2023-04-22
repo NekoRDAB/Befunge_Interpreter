@@ -23,7 +23,7 @@ def path_correct(path):
     if not os.path.isfile(path):
         print(f"Could not find {path}")
     elif os.path.splitext(path)[-1] not in EXTENSIONS:
-        print(f"{path} does not have a valid extension")
+        print(f"Invalid extension: {os.path.basename(path)}")
     else:
         return True
     return False

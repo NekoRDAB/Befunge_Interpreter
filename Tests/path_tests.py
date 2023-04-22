@@ -15,6 +15,7 @@ class Test(unittest.TestCase):
     def test_file_not_found(self):
         path = PATH_TO_DIR + "not_existing_file"
         self.assertFalse(path_correct(path))
+        self.assertFalse(path_correct(PATH_TO_DIR))
 
     def test_incorrect_extension(self):
         path = PATH_TO_DIR + "incorrect_extension.txt"
