@@ -47,9 +47,13 @@ class Interpreter:
         instruction = self.get_current_instruction()
         if self.skip_next:
             self.skip_next = False
+        elif instruction in self.instructions:
+            self.instructions[instruction]()
+            self.pointer.move()
         else:
-            # TODO: продолжить, когда будут все инструкции
-            pass
+            exit_with_message(
+                f"Syntax error, unknown instruction: {instruction}",
+                self.pointer)
 
     def skip_next_instruction(self):
         self.skip_next = True
