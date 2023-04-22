@@ -10,8 +10,8 @@ class Interpreter:
         self.code = self.read_code_from_file(path)
         self.pointer = Pointer(self.width, self.height)
         self.instructions = dict()
-        add_instructions(self)
         self.stack = []
+        add_instructions(self)
         self.skip_next = False
 
     def run(self):

@@ -15,6 +15,7 @@ def add_instructions(interpreter):
         ',': lambda: output_as_ascii_char(interpreter),
         '#': lambda: interpreter.skip_next_instruction(),
         '@': lambda: exit(0),
+        ' ': lambda: interpreter.pointer.move()
     })
     add_call_instructions(interpreter)
     add_input_instructions(interpreter)
