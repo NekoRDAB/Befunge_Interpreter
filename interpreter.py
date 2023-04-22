@@ -1,4 +1,5 @@
 from pointer import Pointer
+from instructions import add_instructions
 
 
 class Interpreter:
@@ -8,7 +9,7 @@ class Interpreter:
         self.code = self.read_code_from_file(path)
         self.pointer = Pointer(self.width, self.height)
         self.instructions = dict()
-        self.add_base_instructions()
+        add_instructions(self)
         self.stack = []
 
     def run(self):
@@ -31,7 +32,9 @@ class Interpreter:
         x, y = self.pointer.get_position()
         return self.code[y][x]
 
-    def add_base_instructions(self):
+
+"""
+    def add_instructions(self):
         self.add_direction_instructions()
 
     def add_direction_instructions(self):
@@ -63,3 +66,4 @@ class Interpreter:
             )
         else:
             self.stack.append(b // a)
+"""

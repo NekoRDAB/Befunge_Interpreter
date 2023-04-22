@@ -3,24 +3,27 @@ import os
 from interpreter import Interpreter
 
 
+EXTENSIONS = [".be", ".bf", ".b93", ".b98", ".befunge"]
+
+
 def main():
-    if not arguments_correct():
+    if len(sys.argv) != 2:
+        print(f"Usage:\n"
+              f"\tpython interpreter.py <absolute path to befunge file>\n"
+              f"Extensions: {EXTENSIONS}")
+        return
+    if not path_correct(sys.argv[1]):
         return
     path = sys.argv[1]
     interpreter = Interpreter(path)
     interpreter.run()
 
 
-def arguments_correct():
-    extensions = [".be", ".bf", ".b93", ".b98", ".befunge"]
-    if len(sys.argv) != 2:
-        print(f"Usage:\n"
-              f"\tpython interpreter.py <absolute path to befunge file>\n"
-              f"Extensions: {extensions}")
-    elif not os.path.isfile(sys.argv[1]):
-        print(f"Could not find {sys.argv[1]}")
-    elif os.path.splitext(sys.argv[1])[-1] not in extensions:
-        print(f"{sys.argv[1]} does not have a valid extension")
+def path_correct(path):
+    if not os.path.isfile(path):
+        print(f"Could not find {path}")
+    elif os.path.splitext(path)[-1] not in EXTENSIONS:
+        print(f"{path} does not have a valid extension")
     else:
         return True
     return False
