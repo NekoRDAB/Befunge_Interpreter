@@ -1,5 +1,6 @@
 from pointer import Pointer
 from instructions import add_instructions
+from error_handler import exit_with_message
 
 
 class Interpreter:
@@ -15,6 +16,9 @@ class Interpreter:
     def run(self):
         while self.pointer.is_inside():
             instruction = self.get_current_instruction()
+
+        if not self.pointer.is_inside():
+            exit_with_message("Pointer is out of bounds", self.pointer)
 
     def read_code_from_file(self, path):
         with open(path) as file:
