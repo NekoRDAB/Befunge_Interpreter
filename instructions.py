@@ -13,6 +13,7 @@ def add_instructions(interpreter):
         '$': lambda: interpreter.stack.pop(-1),
         '.': lambda: output_as_integer(interpreter),
         ',': lambda: output_as_ascii_char(interpreter),
+        '#': lambda: interpreter.skip_next_instruction(),
     })
 
 
@@ -67,14 +68,12 @@ def add_conditions(interpreter):
 
 def read_string(interpreter):
     pointer = interpreter.pointer
-    string = ""
     pointer.move()
     while pointer.is_inside() \
             and interpreter.get_current_instruction() != '\"':
-        string += interpreter.get_current_instruction()
+        interpreter.stack.append(interpreter.get_current_instruction())
     if not pointer.is_inside():
         exit_with_message("Pointer is out of bounds", pointer)
-    interpreter.stack.append(string)
     pointer.move()
 
 

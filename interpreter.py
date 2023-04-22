@@ -12,10 +12,11 @@ class Interpreter:
         self.instructions = dict()
         add_instructions(self)
         self.stack = []
+        self.skip_next = False
 
     def run(self):
         while self.pointer.is_inside():
-            instruction = self.get_current_instruction()
+            self.execute_instruction()
 
         if not self.pointer.is_inside():
             exit_with_message("Pointer is out of bounds", self.pointer)
@@ -35,3 +36,14 @@ class Interpreter:
     def get_current_instruction(self):
         x, y = self.pointer.get_position()
         return self.code[y][x]
+
+    def execute_instruction(self):
+        instruction = self.get_current_instruction()
+        if self.skip_next:
+            self.skip_next = False
+        else:
+            # TODO: продолжить, когда будут все инструкции
+            pass
+
+    def skip_next_instruction(self):
+        self.skip_next = True

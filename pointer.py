@@ -4,7 +4,7 @@ class Pointer:
         self._y = 0
         self._width = width
         self._height = height
-        self._direction = None
+        self._direction = (1, 0)
 
     def is_inside(self):
         return 0 <= self._x < self._width and 0 <= self._y < self._height
