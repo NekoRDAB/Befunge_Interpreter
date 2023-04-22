@@ -15,7 +15,7 @@ def add_instructions(interpreter):
         ',': lambda: output_as_ascii_char(interpreter),
         '#': lambda: interpreter.skip_next_instruction(),
         '@': lambda: exit(0),
-        ' ': lambda: interpreter.pointer.move()
+        ' ': lambda: None,
     })
     add_call_instructions(interpreter)
     add_input_instructions(interpreter)
@@ -62,13 +62,15 @@ def add_conditions(interpreter):
     stack = interpreter.stack
     interpreter.instructions.update({
         "_": lambda: pointer.change_direction(
-            choose_direction((1, 0), (1, 0))),
+            choose_direction((1, 0), (-1, 0))),
         "|": lambda: pointer.change_direction(
             choose_direction((0, 1), (0, -1))),
     })
 
     def choose_direction(if_true, if_false):
-        return if_true if stack.pop(-1) == 0 else if_false
+        return \
+            if_true if len(stack) == 0 or stack.pop(-1) == 0 \
+            else if_false
 
 
 def read_string(interpreter):
@@ -77,9 +79,9 @@ def read_string(interpreter):
     while pointer.is_inside() \
             and interpreter.get_current_instruction() != '\"':
         interpreter.stack.append(interpreter.get_current_instruction())
+        pointer.move()
     if not pointer.is_inside():
         exit_with_message("Pointer is out of bounds", pointer)
-    pointer.move()
 
 
 def swap_top_stack_values(interpreter):
@@ -106,6 +108,8 @@ def output_as_ascii_char(interpreter):
         exit_with_message(
             "Top stack value expected to be an ascii char but it was not",
             interpreter.pointer)
+    else:
+        print(s, end='')
 
 
 def add_call_instructions(interpreter):
@@ -163,5 +167,5 @@ def add_input_instructions(interpreter):
 def add_numbers(interpreter):
     for n in range(10):
         interpreter.instructions.update({
-            str(n): interpreter.stack.append(n)
+            str(n): lambda: interpreter.stack.append(n)
         })

@@ -18,6 +18,3 @@ class Pointer:
     def move(self):
         self._x += self._direction[0]
         self._y += self._direction[1]
-
-    def __repr__(self):
-        return f"row: {self._y} column: {self._y}"
