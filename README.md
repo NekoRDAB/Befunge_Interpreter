@@ -6,5 +6,6 @@ Root directory:
 ```
 python main.py <path>
 ```
-```<path>``` is absolute path to the file with source code to interpret, e.g. "python main.py "C:\Users\User\example_file.befunge"".
+```<path>``` is absolute path to the file with source code to interpret, e.g. "python main.py "C:\Users\User\example_file.befunge"". 
+
 Supported extensions are: ".be", ".bf", ".b93", ".b98", ".befunge".
