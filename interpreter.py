@@ -31,39 +31,3 @@ class Interpreter:
     def get_current_instruction(self):
         x, y = self.pointer.get_position()
         return self.code[y][x]
-
-
-"""
-    def add_instructions(self):
-        self.add_direction_instructions()
-
-    def add_direction_instructions(self):
-        self.instructions.update({
-            '>': self.pointer.change_direction((1, 0)),
-            'v': self.pointer.change_direction((0, 1)),
-            '<': self.pointer.change_direction((-1, 0)),
-            '^': self.pointer.change_direction((0, -1)),
-        })
-
-    def add_operations(self):
-        stack = self.stack
-        self.instructions.update({
-            '+': stack.append(stack.pop(-1) + stack.pop(-1)),
-            '-': stack.append(stack.pop(-1) - stack.pop(-1)),
-            '*': stack.append(stack.pop(-1) * stack.pop(-1)),
-            '%': stack.append(stack.pop(-1) % stack.pop(-1)),
-            '/': self.divide_operation,
-            '!': stack.append(stack.pop(-1) == 0),
-            '`': stack.append(stack.pop(-1) > stack.pop(-1)),
-        })
-
-    def divide_operation(self):
-        b = self.stack.pop(-1)
-        a = self.stack.pop(-1)
-        if a == 0:
-            self.stack.append(
-                int(input("The divider is zero, what result do you want?"))
-            )
-        else:
-            self.stack.append(b // a)
-"""
