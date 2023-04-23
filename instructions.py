@@ -38,7 +38,7 @@ def add_operations(interpreter):
     stack = interpreter.stack
     interpreter.instructions.update({
         '+': lambda: stack.append(stack.pop(-1) + stack.pop(-1)),
-        '-': lambda: stack.append(stack.pop(-1) - stack.pop(-1)),
+        '-': lambda: stack.append(-stack.pop(-1) + stack.pop(-1)),
         '*': lambda: stack.append(stack.pop(-1) * stack.pop(-1)),
         '%': lambda: stack.append(stack.pop(-1) % stack.pop(-1)),
         '/': lambda: divide_operation(),
@@ -165,7 +165,15 @@ def add_input_instructions(interpreter):
 
 
 def add_numbers(interpreter):
-    for n in range(10):
-        interpreter.instructions.update({
-            str(n): lambda: interpreter.stack.append(n)
-        })
+    interpreter.instructions.update({
+        '0': lambda: interpreter.stack.append(0),
+        '1': lambda: interpreter.stack.append(1),
+        '2': lambda: interpreter.stack.append(2),
+        '3': lambda: interpreter.stack.append(3),
+        '4': lambda: interpreter.stack.append(4),
+        '5': lambda: interpreter.stack.append(5),
+        '6': lambda: interpreter.stack.append(6),
+        '7': lambda: interpreter.stack.append(7),
+        '8': lambda: interpreter.stack.append(8),
+        '9': lambda: interpreter.stack.append(9),
+    })

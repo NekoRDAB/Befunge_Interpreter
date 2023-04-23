@@ -25,7 +25,7 @@ class Interpreter:
         with open(path) as file:
             lines = []
             for line in file.readlines():
-                lines.append(line)
+                lines.append(line.replace('\n', ''))
                 self.height += 1
                 self.width = max(self.width, len(line))
             result = []
