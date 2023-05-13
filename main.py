@@ -4,7 +4,7 @@ from interpreter import Interpreter
 from multiprocessing import Process
 
 EXTENSIONS = [".be", ".bf", ".b93", ".b98", ".befunge"]
-TIMEOUT = 60
+TIMEOUT = 10
 
 
 def main():
