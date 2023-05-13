@@ -1,5 +1,5 @@
 class Stack:
-    def __init(self):
+    def __init__(self):
         self.list = []
 
     def pop(self):
@@ -14,3 +14,6 @@ class Stack:
         if len(self.list) > 0:
             return self.list[-1]
         return 0
+
+    def count(self):
+        return len(self.list)
