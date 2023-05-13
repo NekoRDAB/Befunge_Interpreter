@@ -5,7 +5,7 @@ from interpreter import Interpreter
 class Test(unittest.TestCase):
     def test_stack_empty(self):
         interpreter = Interpreter()
-        self.assertEqual([], interpreter.stack)
+        self.assertEqual([], interpreter.stack.list)
 
     def test_stack_contains_numbers(self):
         interpreter = Interpreter()
@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         for i in range(10):
             interpreter.execute_given_instruction(str(i))
             expected_stack.append(i)
-        self.assertEqual(expected_stack, interpreter.stack)
+        self.assertEqual(expected_stack, interpreter.stack.list)
 
     def test_push_pop(self):
         interpreter = Interpreter()
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
         instructions = ["1", "2", "3", "$", "$"]
         for instruction in instructions:
             interpreter.execute_given_instruction(instruction)
-        self.assertEqual(expected_stack, interpreter.stack)
+        self.assertEqual(expected_stack, interpreter.stack.list)
 
     def test_operations(self):
         interpreter = Interpreter()
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         expected_stack = [4]
         for instruction in instructions:
             interpreter.execute_given_instruction(instruction)
-        self.assertEqual(expected_stack, interpreter.stack)
+        self.assertEqual(expected_stack, interpreter.stack.list)
 
 
 if __name__ == "__main__":
