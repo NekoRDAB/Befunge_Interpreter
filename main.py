@@ -1,10 +1,8 @@
 import os
 import argparse
 from interpreter import Interpreter
-from multiprocessing import Process
 
 EXTENSIONS = [".be", ".bf", ".b93", ".b98", ".befunge"]
-TIMEOUT = 10
 
 
 def main():
@@ -31,9 +29,4 @@ def path_correct(path):
 
 
 if __name__ == "__main__":
-    process = Process(target=main)
-    process.start()
-    process.join(TIMEOUT)
-    if process.is_alive():
-        print("Reached timeout. Terminating")
-        process.kill()
+    main()
