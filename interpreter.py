@@ -1,4 +1,5 @@
 from pointer import Pointer
+from stack import Stack
 from instructions import add_instructions
 from error_handler import exit_with_message
 
@@ -10,7 +11,7 @@ class Interpreter:
         self.code = None
         self.pointer = Pointer(self.width, self.height)
         self.instructions = dict()
-        self.stack = []
+        self.stack = Stack()
         add_instructions(self)
         self.skip_next = False
 
