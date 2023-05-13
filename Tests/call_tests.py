@@ -13,7 +13,15 @@ class Test(unittest.TestCase):
         instructions = ["1", "2", "g"]
         for instruction in instructions:
             interpreter.execute_given_instruction(instruction)
-        self.assertEqual(ord(":"), interpreter.stack[0])
+        self.assertEqual(ord(":"), interpreter.stack.peek())
+
+    def test_get_call_negative_coordinates(self):
+        interpreter = Interpreter()
+        interpreter.read_code_from_file(PATH)
+        instructions = ["1", "-", "0", "2", "-", "g"]
+        for instruction in instructions:
+            interpreter.execute_given_instruction(instruction)
+        self.assertEqual(0, interpreter.stack.peek())
 
     def test_put_call(self):
         interpreter = Interpreter()
