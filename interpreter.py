@@ -2,6 +2,7 @@ from pointer import Pointer
 from stack import Stack
 from instructions import add_instructions
 from error_handler import exit_with_message
+import time
 
 
 class Interpreter:
@@ -14,10 +15,14 @@ class Interpreter:
         self.stack = Stack()
         add_instructions(self)
         self.skip_next = False
+        self.timeout = float("inf")
 
     def run(self):
+        start_time = time.time()
         while self.pointer.is_inside():
             self.execute_instruction()
+            if time.time() - start_time > self.timeout:
+                exit_with_message("Reached timeout. Terminating", self.pointer)
 
         if not self.pointer.is_inside():
             exit_with_message("Pointer is out of bounds", self.pointer)
@@ -29,6 +34,9 @@ class Interpreter:
                 current_line = line.replace('\n', '')
                 result.append(current_line + ' ' * (self.width - len(current_line)))
             self.code = result + [" " * 80] * (25 - len(result))
+
+    def set_timeout(self):
+        self.timeout = 60
 
     def get_current_instruction(self):
         x, y = self.pointer.get_position()
