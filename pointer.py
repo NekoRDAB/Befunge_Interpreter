@@ -16,5 +16,5 @@ class Pointer:
         self._direction = new_direction
 
     def move(self):
-        self._x += self._direction[0]
-        self._y += self._direction[1]
+        self._x = (self._x + self._direction[0]) % self._width
+        self._y = (self._y + self._direction[1]) % self._height

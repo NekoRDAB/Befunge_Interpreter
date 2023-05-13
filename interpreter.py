@@ -4,13 +4,13 @@ from error_handler import exit_with_message
 
 
 class Interpreter:
-    def __init__(self, path):
-        self.width = 0
-        self.height = 0
-        self.code = self.read_code_from_file(path)
+    def __init__(self):
+        self.width = 80
+        self.height = 25
+        self.code = None
         self.pointer = Pointer(self.width, self.height)
         self.instructions = dict()
-        self.stack = [0]
+        self.stack = []
         add_instructions(self)
         self.skip_next = False
 
@@ -23,15 +23,11 @@ class Interpreter:
 
     def read_code_from_file(self, path):
         with open(path) as file:
-            lines = []
-            for line in file.readlines():
-                lines.append(line.replace('\n', ''))
-                self.height += 1
-                self.width = max(self.width, len(line))
             result = []
-            for line in lines:
-                result.append(line + ' ' * (self.width - len(line)))
-            return result
+            for line in file.readlines():
+                current_line = line.replace('\n', '')
+                result.append(current_line + ' ' * (self.width - len(current_line)))
+            self.code = result + [" " * 80] * (25 - len(result))
 
     def get_current_instruction(self):
         x, y = self.pointer.get_position()
@@ -41,15 +37,26 @@ class Interpreter:
         return self.code[y][x]
 
     def change_char_at(self, x, y, v):
-        self.code[y][x] = v
+        self.code[y] = self.code[y][:x] + v + self.code[y][x+1:]
 
     def execute_instruction(self):
         instruction = self.get_current_instruction()
         if self.skip_next:
             self.skip_next = False
+            self.pointer.move()
         elif instruction in self.instructions:
             self.instructions[instruction]()
             self.pointer.move()
+        else:
+            exit_with_message(
+                f"Syntax error, unknown instruction: {instruction}",
+                self.pointer)
+
+    def execute_given_instruction(self, instruction):
+        if self.skip_next:
+            self.skip_next = False
+        elif instruction in self.instructions:
+            self.instructions[instruction]()
         else:
             exit_with_message(
                 f"Syntax error, unknown instruction: {instruction}",

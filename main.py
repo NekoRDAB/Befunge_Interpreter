@@ -1,21 +1,20 @@
-import sys
 import os
+import argparse
 from interpreter import Interpreter
-
 
 EXTENSIONS = [".be", ".bf", ".b93", ".b98", ".befunge"]
 
 
 def main():
-    if len(sys.argv) != 2:
-        print(f"Usage:\n"
-              f"\tpython interpreter.py <absolute path to befunge file>\n"
-              f"Supported extensions: {EXTENSIONS}")
+    parser = argparse.ArgumentParser(description='Befunge interpreter')
+    parser.add_argument(
+        "path", type=str,
+        help=f"Absolute path to code file with extensions: {EXTENSIONS}")
+    args = parser.parse_args()
+    if not path_correct(args.path):
         return
-    if not path_correct(sys.argv[1]):
-        return
-    path = sys.argv[1]
-    interpreter = Interpreter(path)
+    interpreter = Interpreter()
+    interpreter.read_code_from_file(args.path)
     interpreter.run()
 
 

@@ -8,7 +8,9 @@ def add_instructions(interpreter):
     add_conditions(interpreter)
     interpreter.instructions.update({
         '\"': lambda: read_string(interpreter),
-        ':': lambda: interpreter.stack.append(interpreter.stack[-1]),
+        ':': lambda: interpreter.stack.append(
+            0 if len(interpreter.stack) == 0 else interpreter.stack[-1]
+        ),
         '\\': lambda: swap_top_stack_values(interpreter),
         '$': lambda: interpreter.stack.pop(-1),
         '.': lambda: output_as_integer(interpreter),
@@ -19,7 +21,7 @@ def add_instructions(interpreter):
     })
     add_call_instructions(interpreter)
     add_input_instructions(interpreter)
-    add_numbers(interpreter)
+    add_digits(interpreter)
 
 
 def add_direction_instructions(interpreter):
@@ -78,7 +80,7 @@ def read_string(interpreter):
     pointer.move()
     while pointer.is_inside() \
             and interpreter.get_current_instruction() != '\"':
-        interpreter.stack.append(interpreter.get_current_instruction())
+        interpreter.stack.append(ord(interpreter.get_current_instruction()))
         pointer.move()
     if not pointer.is_inside():
         exit_with_message("Pointer is out of bounds", pointer)
@@ -104,12 +106,7 @@ def output_as_integer(interpreter):
 
 def output_as_ascii_char(interpreter):
     s = interpreter.stack.pop(-1)
-    if len(s) != 1:
-        exit_with_message(
-            "Top stack value expected to be an ascii char but it was not",
-            interpreter.pointer)
-    else:
-        print(s, end='')
+    print(chr(s), end='')
 
 
 def add_call_instructions(interpreter):
@@ -123,7 +120,7 @@ def add_call_instructions(interpreter):
         y = stack.pop(-1)
         x = stack.pop(-1)
         if 0 <= x <= interpreter.width and 0 <= y <= interpreter.height:
-            stack.append(interpreter.get_char_at(x, y))
+            stack.append(ord(interpreter.get_char_at(x, y)))
         else:
             stack.append(0)
 
@@ -164,7 +161,7 @@ def add_input_instructions(interpreter):
         stack.append(c)
 
 
-def add_numbers(interpreter):
+def add_digits(interpreter):
     interpreter.instructions.update({
         '0': lambda: interpreter.stack.append(0),
         '1': lambda: interpreter.stack.append(1),
