@@ -20,7 +20,7 @@ def main():
     interpreter = Interpreter()
     interpreter.read_code_from_file(args.path)
     if args.timeout:
-        interpreter.set_timeout()
+        interpreter.set_timeout(60)
     interpreter.run()
 
 

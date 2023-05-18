@@ -35,8 +35,8 @@ class Interpreter:
                 result.append(current_line + ' ' * (self.width - len(current_line)))
             self.code = result + [" " * 80] * (25 - len(result))
 
-    def set_timeout(self):
-        self.timeout = 60
+    def set_timeout(self, timeout):
+        self.timeout = timeout
 
     def get_current_instruction(self):
         x, y = self.pointer.get_position()
@@ -49,17 +49,8 @@ class Interpreter:
         self.code[y] = self.code[y][:x] + v + self.code[y][x+1:]
 
     def execute_instruction(self):
-        instruction = self.get_current_instruction()
-        if self.skip_next:
-            self.skip_next = False
-            self.pointer.move()
-        elif instruction in self.instructions:
-            self.instructions[instruction]()
-            self.pointer.move()
-        else:
-            exit_with_message(
-                f"Syntax error, unknown instruction: {instruction}",
-                self.pointer)
+        self.execute_given_instruction(self.get_current_instruction())
+        self.pointer.move()
 
     def execute_given_instruction(self, instruction):
         if self.skip_next:
