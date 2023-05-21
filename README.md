@@ -4,8 +4,10 @@ This app is an interpreter written in Python for the esoteric language Befunge-9
 ## Usage
 Root directory:
 ```
-python main.py <path>
+python main.py <path> <boolean>
 ```
-```<path>``` is absolute path to the file with source code to interpret, e.g. "python main.py "C:\Users\User\example_file.befunge"". 
+```<path>``` is absolute path to the file with source code to interpret, e.g. "python main.py "C:\Users\User\example_file.befunge"".
+ 
+```<boolean>``` determines whether timeout of 60 sec is on 
 
 Supported extensions are: ".be", ".bf", ".b93", ".b98", ".befunge".

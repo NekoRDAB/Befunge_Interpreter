@@ -1,6 +1,6 @@
 from pointer import Pointer
 from stack import Stack
-from instructions import add_instructions
+from instructions_93 import add_instructions
 from error_handler import exit_with_message
 import time
 
@@ -50,12 +50,10 @@ class Interpreter:
 
     def execute_instruction(self):
         self.execute_given_instruction(self.get_current_instruction())
-        self.pointer.move()
+        self.pointer.move(1)
 
     def execute_given_instruction(self, instruction):
-        if self.skip_next:
-            self.skip_next = False
-        elif instruction in self.instructions:
+        if instruction in self.instructions:
             self.instructions[instruction]()
         else:
             exit_with_message(

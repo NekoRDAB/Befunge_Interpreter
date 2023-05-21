@@ -4,7 +4,7 @@ class Pointer:
         self._y = 0
         self._width = width
         self._height = height
-        self._direction = (1, 0)
+        self._delta = (1, 0)
 
     def is_inside(self):
         return 0 <= self._x < self._width and 0 <= self._y < self._height
@@ -13,8 +13,8 @@ class Pointer:
         return self._x, self._y
 
     def change_direction(self, new_direction):
-        self._direction = new_direction
+        self._delta = new_direction
 
-    def move(self):
-        self._x = (self._x + self._direction[0]) % self._width
-        self._y = (self._y + self._direction[1]) % self._height
+    def move(self, s):
+        self._x = (self._x + s * self._delta[0]) % self._width
+        self._y = (self._y + s * self._delta[1]) % self._height

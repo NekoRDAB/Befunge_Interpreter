@@ -13,7 +13,7 @@ def add_instructions(interpreter):
         '$': lambda: interpreter.stack.pop(),
         '.': lambda: output_as_integer(interpreter),
         ',': lambda: output_as_ascii_char(interpreter),
-        '#': lambda: interpreter.skip_next_instruction(),
+        '#': lambda: interpreter.pointer.move(1),
         '@': lambda: exit(0),
         ' ': lambda: None,
     })

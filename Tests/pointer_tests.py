@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         instructions = ["<"]
         for instruction in instructions:
             interpreter.execute_given_instruction(instruction)
-        self.assertEqual((-1, 0), interpreter.pointer._direction)
+        self.assertEqual((-1, 0), interpreter.pointer._delta)
 
     def test_coordinates_straight_move_instruction(self):
         interpreter = Interpreter()
@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
         instructions = ["1", "_"]
         for instruction in instructions:
             interpreter.execute_given_instruction(instruction)
-        self.assertEqual((-1, 0), interpreter.pointer._direction)
+        self.assertEqual((-1, 0), interpreter.pointer._delta)
 
     def test_coordinates_conditional_move_instruction(self):
         interpreter = Interpreter()
