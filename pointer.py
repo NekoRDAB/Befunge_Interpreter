@@ -18,3 +18,8 @@ class Pointer:
     def move(self, s):
         self._x = (self._x + s * self._delta[0]) % self._width
         self._y = (self._y + s * self._delta[1]) % self._height
+
+    def get_pos(self, add_delta=False):
+        if add_delta:
+            return self._delta[0] + self._x, self._delta[1] + self._y
+        return self._x, self._y

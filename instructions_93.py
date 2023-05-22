@@ -75,11 +75,11 @@ def add_conditions(interpreter):
 
 def read_string(interpreter):
     pointer = interpreter.pointer
-    pointer.move()
+    pointer.move(1)
     while pointer.is_inside() \
             and interpreter.get_current_instruction() != '\"':
         interpreter.stack.push(ord(interpreter.get_current_instruction()))
-        pointer.move()
+        pointer.move(1)
     if not pointer.is_inside():
         exit_with_message("Pointer is out of bounds", pointer)
 

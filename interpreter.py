@@ -1,6 +1,7 @@
 from pointer import Pointer
 from stack import Stack
-from instructions_93 import add_instructions
+import instructions_93
+import instructions_98
 from error_handler import exit_with_message
 import time
 
@@ -13,7 +14,7 @@ class Interpreter:
         self.pointer = Pointer(self.width, self.height)
         self.instructions = dict()
         self.stack = Stack()
-        add_instructions(self)
+        instructions_93.add_instructions(self)
         self.skip_next = False
         self.timeout = float("inf")
 
@@ -37,6 +38,9 @@ class Interpreter:
 
     def set_timeout(self, timeout):
         self.timeout = timeout
+
+    def add_98_instructions(self):
+        instructions_98.add_instructions(self)
 
     def get_current_instruction(self):
         x, y = self.pointer.get_position()
