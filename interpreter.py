@@ -11,7 +11,7 @@ class Interpreter:
         self.width = 80
         self.height = 25
         self.code = None
-        self.pointer = Pointer(self.width, self.height)
+        self.pointer = Pointer(self)
         self.instructions = dict()
         self.stack = Stack()
         instructions_93.add_instructions(self)
@@ -20,13 +20,10 @@ class Interpreter:
 
     def run(self):
         start_time = time.time()
-        while self.pointer.is_inside():
+        while True:
             self.execute_instruction()
             if time.time() - start_time > self.timeout:
                 exit_with_message("Reached timeout. Terminating", self.pointer)
-
-        if not self.pointer.is_inside():
-            exit_with_message("Pointer is out of bounds", self.pointer)
 
     def read_code_from_file(self, path):
         with open(path) as file:
@@ -54,7 +51,7 @@ class Interpreter:
 
     def execute_instruction(self):
         self.execute_given_instruction(self.get_current_instruction())
-        self.pointer.move(1)
+        self.pointer.move()
 
     def execute_given_instruction(self, instruction):
         if instruction in self.instructions:
