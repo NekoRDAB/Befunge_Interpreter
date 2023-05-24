@@ -8,6 +8,10 @@ class Pointer:
     def get_position(self):
         return self._x, self._y
 
+    def set_position(self, x, y):
+        self._x = x
+        self._y = y
+
     def change_direction(self, new_direction):
         self._delta = new_direction
 
@@ -24,12 +28,6 @@ class Pointer:
             self._x += dx
             self._y += dy
         self.revert()
-
-    def get_pos(self, add_delta=False):
-        if add_delta:
-            dx, dy = self._delta
-            return dx + self._x, dy + self._y
-        return self._x, self._y
 
     def rotate(self, direction=1):
         dx, dy = self._delta
