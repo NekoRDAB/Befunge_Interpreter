@@ -36,6 +36,12 @@ class Test(unittest.TestCase):
             interpreter.pointer.move()
         self.assertEqual((1, 1), interpreter.pointer.get_position())
 
+        interpreter.pointer.change_direction((-2, 1))
+        interpreter.pointer.set_position(2, 3)
+        for i in range(1):
+            interpreter.pointer.move()
+        self.assertEqual((8, 0), interpreter.pointer.get_position())
+
 
 if __name__ == "main":
     unittest.main()
