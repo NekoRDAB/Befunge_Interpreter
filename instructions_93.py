@@ -117,7 +117,7 @@ def add_call_instructions(interpreter):
     def get_call():
         y = stack.pop()
         x = stack.pop()
-        if 0 <= x <= interpreter.width and 0 <= y <= interpreter.height:
+        if interpreter.space.is_inside(x, y):
             stack.push(ord(interpreter.get_char_at(x, y)))
         else:
             stack.push(0)
@@ -130,7 +130,7 @@ def add_call_instructions(interpreter):
         y = stack.pop()
         x = stack.pop()
         v = stack.pop()
-        if 0 <= x <= interpreter.width and 0 <= y <= interpreter.height:
+        if interpreter.space.is_inside(x, y):
             interpreter.change_char_at(x, y, chr(v))
         else:
             exit_with_message(

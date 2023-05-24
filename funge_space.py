@@ -21,7 +21,7 @@ class FungeSpace:
             self.code.append(' ' * self.width)
         self.height = max(y + 1, self.height)
 
-    def is_in_space(self, x, y):
+    def is_inside(self, x, y):
         return 0 <= x < self.width and 0 <= y < self.height
 
     def __getitem__(self, index):
@@ -29,9 +29,9 @@ class FungeSpace:
         self.extend_space(x, y)
         return self.code[y][x]
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, index, value):
         if (type(value) != str) or len(value) != 1:
             raise ValueError("expected string of length 1, actual is", value)
-        x, y = key
+        x, y = index
         self.extend_space(x, y)
         self.code[y] = self.code[y][:x] + value + self.code[y][x+1:]
