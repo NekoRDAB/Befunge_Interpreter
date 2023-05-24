@@ -25,7 +25,7 @@ def main():
     if not path_correct(args.path):
         return
     interpreter = Interpreter()
-    interpreter.read_code_from_file(args.path)
+    interpreter.create_space(args.path)
     interpreter.set_timeout(args.timeout)
     if args.befunge98:
         interpreter.add_98_instructions()
