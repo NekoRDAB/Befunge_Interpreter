@@ -21,7 +21,7 @@ class FungeSpace:
             self.code.append(' ' * self.width)
         self.height = max(y + 1, self.height)
 
-    def out_of_space(self, x, y):
+    def is_in_space(self, x, y):
         return 0 <= x < self.width and 0 <= y < self.height
 
     def __getitem__(self, index):

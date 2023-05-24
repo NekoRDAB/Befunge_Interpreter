@@ -1,5 +1,6 @@
 from pointer import Pointer
 from stack import Stack
+from funge_space import FungeSpace
 import instructions_93
 import instructions_98
 from error_handler import exit_with_message
@@ -11,6 +12,7 @@ class Interpreter:
         self.width = 80
         self.height = 25
         self.code = None
+        self.space = None
         self.pointer = Pointer(self)
         self.instructions = dict()
         self.stack = Stack()
@@ -32,6 +34,10 @@ class Interpreter:
                 current_line = line.replace('\n', '')
                 result.append(current_line + ' ' * (self.width - len(current_line)))
             self.code = result + [" " * 80] * (25 - len(result))
+
+    def create_space(self, path):
+        with open(path) as file:
+            self.space = FungeSpace(file)
 
     def set_timeout(self, timeout):
         self.timeout = timeout
