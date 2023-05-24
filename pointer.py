@@ -18,13 +18,15 @@ class Pointer:
     def move(self, s=1):
         self._x = self._x + s * self._delta[0]
         self._y = self._y + s * self._delta[1]
-        if not self.is_inside(self._x, self._y):
+        space = self.interpreter.space
+        if not space.is_inside(self._x, self._y):
             self.wrap()
 
     def wrap(self):
         self.revert()
         dx, dy = self._delta
-        while self.is_inside(self._x + dx, self._y + dy):
+        space = self.interpreter.space
+        while space.is_inside(self._x + dx, self._y + dy):
             self._x += dx
             self._y += dy
         self.revert()
@@ -38,9 +40,9 @@ class Pointer:
         dx, dy = self._delta
         return self._x + dx, self._y + dy
 
-    def is_inside(self, x, y):
+    def is_inside(self):
         interpreter = self.interpreter
-        return interpreter.space.is_inside(x, y)
+        return interpreter.space.is_inside(self._x, self._y)
 
     def revert(self):
         dx, dy = self._delta
