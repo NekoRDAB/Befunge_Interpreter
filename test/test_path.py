@@ -3,7 +3,7 @@ from main import path_correct
 
 
 PATH_TO_DIR = (r"C:\Users\Professional\Desktop\python_files"
-               r"\pythonProject\Befunge_Interpreter\Tests\test_files"
+               r"\pythonProject\Befunge_Interpreter\test\test_files"
                "\\")
 
 

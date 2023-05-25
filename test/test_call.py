@@ -2,7 +2,7 @@ import unittest
 from interpreter import Interpreter
 
 PATH = r"C:\Users\Professional\Desktop\python_files" \
-       r"\pythonProject\Befunge_Interpreter\Tests\test_files" \
+       r"\pythonProject\Befunge_Interpreter\test\test_files" \
        r"\example_file.befunge"
 
 

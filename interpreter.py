@@ -38,6 +38,10 @@ class Interpreter:
         x, y = self.pointer.get_position()
         return self.space[x, y]
 
+    def get_next_instruction(self):
+        x, y = self.pointer.get_next_dest()
+        return self.space[x, y]
+
     def get_char_at(self, x, y):
         return self.space[x, y]
 

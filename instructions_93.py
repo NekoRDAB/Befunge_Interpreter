@@ -26,11 +26,11 @@ def add_direction_instructions(interpreter):
     pointer = interpreter.pointer
     directions = ((1, 0), (0, 1), (-1, 0), (0, -1))
     interpreter.instructions.update({
-        '>': lambda: pointer.change_direction(directions[0]),
-        'v': lambda: pointer.change_direction(directions[1]),
-        '<': lambda: pointer.change_direction(directions[2]),
-        '^': lambda: pointer.change_direction(directions[3]),
-        '?': lambda: pointer.change_direction(choice(directions)),
+        '>': lambda: pointer.set_delta(directions[0]),
+        'v': lambda: pointer.set_delta(directions[1]),
+        '<': lambda: pointer.set_delta(directions[2]),
+        '^': lambda: pointer.set_delta(directions[3]),
+        '?': lambda: pointer.set_delta(choice(directions)),
     })
 
 
@@ -61,9 +61,9 @@ def add_conditions(interpreter):
     pointer = interpreter.pointer
     stack = interpreter.stack
     interpreter.instructions.update({
-        "_": lambda: pointer.change_direction(
+        "_": lambda: pointer.set_delta(
             choose_direction((1, 0), (-1, 0))),
-        "|": lambda: pointer.change_direction(
+        "|": lambda: pointer.set_delta(
             choose_direction((0, 1), (0, -1))),
     })
 

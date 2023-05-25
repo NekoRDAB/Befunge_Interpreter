@@ -17,3 +17,6 @@ class Stack:
 
     def count(self):
         return len(self.list)
+
+    def clear(self):
+        self.list = []

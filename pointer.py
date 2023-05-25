@@ -12,8 +12,8 @@ class Pointer:
         self._x = x
         self._y = y
 
-    def change_direction(self, new_direction):
-        self._delta = new_direction
+    def set_delta(self, new_delta):
+        self._delta = new_delta
 
     def move(self, s=1):
         self._x = self._x + s * self._delta[0]

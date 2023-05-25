@@ -4,7 +4,7 @@ from funge_space import FungeSpace
 
 PATH_TO_FILE = (r"C:\Users\Professional\Desktop\python_files"
                 r"\pythonProject\Befunge_Interpreter"
-                r"\Tests\befunge98_tests\test_files\example_file.befunge")
+                r"\test\test_98\test_files\example_file.befunge")
 WIDTH = 17
 HEIGHT = 4
 
